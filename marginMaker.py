@@ -15,5 +15,16 @@ Requirements
 Questions
   * What are "trailing blanks"?
   
-
+Algorithm
+  1. Prompt user to enter margins (left and right)
+  2. Use margins to calculate how many characters should be on each line
+  3. Read from file (one-word-at-a-time), making sure the number of
+     characters in each word does NOT exceed the max number of characters
+     "allowed" on each line
+  4. If the word characters do not cause the line to exceed the max number
+      of characters, add that word to the line. Otherwise, add that word to
+      the next line and reset the count
+  5. Repeat this process (3-4) until all the words in "DAT1.TXT" are read
+  6. Close the outputted file ("DAT1_output.TXT"), read all the lines from
+     it, and display it to the user
 '''
