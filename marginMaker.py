@@ -3,7 +3,7 @@ Assumptions
   * "DAT1.TXT" is properly formatted (grammatically)
   * "DAT1.TXT" words are all separated by spaces (' ')
   * The user types in the two integers (the left and right margins)
-  * 1 inch = 12 characters (X) --> one inch contains 12 chars
+  * 1 inch = 12 characters (X) --> one inch contains 12 chars     **(might be irrelevant now)**
   * Line is max of 80 chars total
   
 Requirements
@@ -31,31 +31,54 @@ Algorithm
 '''
 
 def maxChars(m_left, m_right):          #calculates the maximum number of characters allowed per line
-  
   numChars = 80 - (m_left + m_right)
-  
   return numChars
 
 
 
-
 def main():
-  marg_left = int(input("Enter a left margin:\t"))
-  marg_right = int(input("Enter a right margin:\t"))
-  chars_per_line = maxChars(marg_left, marg_right)
+  marg_left = int(input("Enter a left margin:\t"))          #get left margin from user
+  marg_right = int(input("Enter a right margin:\t"))        #get right margin from user
+  chars_per_line = maxChars(marg_left, marg_right)          #max characters allowed per line
   
-  dataFile = open("DAT1.TXT", 'r')
-  tmpStr = dataFile.read()
-  wordArray = tmpStr.split(' ')
-  dataFile.close()
   
-  charTotal = 0
+  dataFile = open("DAT1.TXT", 'r')                          #opens file for READING only
+  tmpStr = dataFile.read()                                  #reads entire file into a single string
+  wordArray = tmpStr.split(' ')                             #creates array from string, separated by ' '
+  dataFile.close()                                          #closes file
+  
+  
+  leftSpace = ''                    #left space margin
+  rightSpace = ''                   #right space margin
+  for i in range(marg_left):
+    leftSpace += '*'                #change this to ' ' later
+  for i in range(marg_right):
+    rightSpace += '*'               #change this to ' ' later
 
+    
+  outputFile = open("DAT1_output.TXT", 'w')
+  charTotal = 0
+  outputFile.write(leftSpace)
   for word in wordArray:
     chars_in_word = 0
     for char in word:
       chars_in_word += 1
-    if (charTotal + chars_in_word)
+    if (charTotal + chars_in_word + 1 <= chars_per_line):
+      charTotal += chars_in_word + 1
+      outputFile.write(word + ' ')
+    else:
+      remainingSpace = chars_per_line - charTotal
+      charTotal = 0
+      for i in range(remainingSpace):
+        outputFile.write(' ')
+      outputFile.write(rightSpace + '\n' + leftSpace)
+      
+  outputFile.close()
+  
+  displayToUser = open("DAT1_output.TXT", 'r')
+  for line in displayToUser:
+    print(displayToUser.read())
+  displayToUser.close()
 
 
 if __name__ == "__main__":
