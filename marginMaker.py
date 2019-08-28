@@ -34,6 +34,11 @@ def maxChars(m_left, m_right):          #calculates the maximum number of charac
   numChars = 80 - (m_left + m_right)
   return numChars
 
+def printToUser():                      #reads from output file and prints it to the user
+  displayToUser = open("DAT1_output.TXT", 'r')
+  for line in displayToUser:
+    print(line)
+  displayToUser.close()
 
 
 def main():
@@ -56,29 +61,30 @@ def main():
     rightSpace += '*'               #change this to ' ' later
 
     
-  outputFile = open("DAT1_output.TXT", 'w')
-  charTotal = 0
-  outputFile.write(leftSpace)
-  for word in wordArray:
-    chars_in_word = 0
+  outputFile = open("DAT1_output.TXT", 'w')                 #opens file to WRITE --> this is the output file
+  charTotal = 0                                             #keeps track of the number of characters currently in the line
+  outputFile.write(leftSpace)                               #writes left margin
+  for word in wordArray:                                    #loops through every word in the array
+    chars_in_word = 0                                       #stores characters in each word
     for char in word:
       chars_in_word += 1
-    if (charTotal + chars_in_word + 1 <= chars_per_line):
+    if (charTotal + chars_in_word + 1 <= chars_per_line):   #if the current word's characters don't exceed the max characters allowed, print word in that line
       charTotal += chars_in_word + 1
+      remainingSpace_1 = chars_per_line - charTotal
       outputFile.write(word + ' ')
-    else:
-      remainingSpace = chars_per_line - charTotal
-      charTotal = 0
-      for i in range(remainingSpace):
+    else:                                                   #if the current word's characters do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
+      remainingSpace_2 = chars_per_line - charTotal
+      charTotal = chars_in_word + 1
+      for i in range(remainingSpace_2):
         outputFile.write(' ')
-      outputFile.write(rightSpace + '\n' + leftSpace)
-      
-  outputFile.close()
+      outputFile.write(rightSpace + '\n' + leftSpace + word + ' ')
   
-  displayToUser = open("DAT1_output.TXT", 'r')
-  for line in displayToUser:
-    print(displayToUser.read())
-  displayToUser.close()
+  for i in range(remainingSpace_1):                         #after the last word in last line, fill the line with spaces && write right margins
+    outputFile.write(' ') 
+  outputFile.write(rightSpace)
+  outputFile.close()
+  printToUser()
+
 
 
 if __name__ == "__main__":
