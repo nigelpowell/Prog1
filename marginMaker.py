@@ -3,18 +3,16 @@ Assumptions
   * "DAT1.TXT" is properly formatted (grammatically)
   * "DAT1.TXT" words are all separated by spaces (' ')
   * The user types in the two integers (the left and right margins)
-  * 1 inch = 12 characters (X) --> one inch contains 12 chars     **(might be irrelevant now)**
+  * The margins entered by the user represent the number of characters that will be used
   * Line is max of 80 chars total
   
 Requirements
   * Get margins from user
+  * Only one font currently works (12 pt)
   * Read text from "DAT1.TXT"
   * Format text in accordance to user-set margins, spacing, etc.
   * Display edited text
   * Create a new textfile with the edited text ("DAT1_output.TXT")
-  
-Questions
-  * What are "trailing blanks"?
   
 Algorithm
   1. Prompt user to enter margins (left and right)
@@ -64,6 +62,8 @@ def main():
   outputFile = open("DAT1_output.TXT", 'w')                 #opens file to WRITE --> this is the output file
   charTotal = 0                                             #keeps track of the number of characters currently in the line
   outputFile.write(leftSpace)                               #writes left margin
+  
+  use1 = True                                               #keep track of how many spaces to output at the end of file
   for word in wordArray:                                    #loops through every word in the array
     chars_in_word = 0                                       #stores characters in each word
     for char in word:
@@ -72,17 +72,27 @@ def main():
       charTotal += chars_in_word + 1
       remainingSpace_1 = chars_per_line - charTotal
       outputFile.write(word + ' ')
+      use1 = True
     else:                                                   #if the current word's characters do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
       remainingSpace_2 = chars_per_line - charTotal
       charTotal = chars_in_word + 1
       for i in range(remainingSpace_2):
         outputFile.write(' ')
       outputFile.write(rightSpace + '\n' + leftSpace + word + ' ')
+      use1 = False
   
-  for i in range(remainingSpace_1):                         #after the last word in last line, fill the line with spaces && write right margins
-    outputFile.write(' ') 
+  if (use1 == True):
+    remainingSpace_1 = chars_per_line - charTotal
+    for i in range(remainingSpace_1):                         #after the last word in last line, fill the line with spaces && write right margins
+      outputFile.write(' ')
+  elif (use1 == False):
+    remainingSpace_2 = chars_per_line - charTotal
+    for i in range(remainingSpace_2):                         #after the last word in last line, fill the line with spaces && write right margins
+      outputFile.write(' ')
+
   outputFile.write(rightSpace)
   outputFile.close()
+    
   printToUser()
 
 
