@@ -1,6 +1,7 @@
 '''
 Assumptions
   * "DAT1.TXT" is properly formatted (grammatically)
+  * "DAT1.TXT" words are all separated by spaces (' ')
   * The user types in the two integers (the left and right margins)
   * 1 inch = 12 characters (X) --> one inch contains 12 chars
   * Line is max of 80 chars total
@@ -28,3 +29,34 @@ Algorithm
   6. Close the outputted file ("DAT1_output.TXT"), read all the lines from
      it, and display it to the user
 '''
+
+def maxChars(m_left, m_right):          #calculates the maximum number of characters allowed per line
+  
+  numChars = 80 - (m_left + m_right)
+  
+  return numChars
+
+
+
+
+def main():
+  marg_left = int(input("Enter a left margin:\t"))
+  marg_right = int(input("Enter a right margin:\t"))
+  chars_per_line = maxChars(marg_left, marg_right)
+  
+  dataFile = open("DAT1.TXT", 'r')
+  tmpStr = dataFile.read()
+  wordArray = tmpStr.split(' ')
+  dataFile.close()
+  
+  charTotal = 0
+
+  for word in wordArray:
+    chars_in_word = 0
+    for char in word:
+      chars_in_word += 1
+    if (charTotal + chars_in_word)
+
+
+if __name__ == "__main__":
+  main()
