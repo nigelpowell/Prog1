@@ -2,9 +2,10 @@
 Assumptions
   * "DAT1.TXT" is properly formatted (grammatically)
   * "DAT1.TXT" words are all separated by spaces (' ')
-  * The user types in the two integers (the left and right margins)
+  * The user types in the two positive integers, representing the left and right margins
   * The margins entered by the user represent the number of characters that will be used
   * Line is max of 80 chars total
+  * English alphabet is the only alphabet used
   
 Requirements
   * Get margins from user
@@ -17,34 +18,37 @@ Requirements
 Algorithm
   1. Prompt user to enter margins (left and right)
   2. Use margins to calculate how many characters should be on each line
-  3. Read from file (one-word-at-a-time), making sure the number of
-     characters in each word does NOT exceed the max number of characters
-     "allowed" on each line
-  4. If the word characters do not cause the line to exceed the max number
+  3. Read from file, store in an array split by spaces
+  4. Read from the array one-word-at-a-time, making sure the number of characters
+     in each word does NOT exceed the max number of characters "allowed" on each line
+  5. If the word's characters do not cause the line to exceed the max number
       of characters, add that word to the line. Otherwise, add that word to
       the next line and reset the count
-  5. Repeat this process (3-4) until all the words in "DAT1.TXT" are read
-  6. Close the outputted file ("DAT1_output.TXT"), read all the lines from
+  6. Repeat this process (4-5) until all the words in "DAT1.TXT" are read
+  7. Close the outputted file ("DAT1_output.TXT"), read all the lines from
      it, and display it to the user
 '''
-
+####################################################################################################
+####################################################################################################
 def maxChars(m_left, m_right):          #calculates the maximum number of characters allowed per line
   numChars = 80 - (m_left + m_right)
   return numChars
-
+####################################################################################################
 def printToUser():                      #reads from output file and prints it to the user
+  for i in range(1,81):
+    print('|', end='')
+  print()
   displayToUser = open("DAT1_output.TXT", 'r')
   for line in displayToUser:
     print(line)
   displayToUser.close()
-
-
+####################################################################################################
 def main():
   marg_left = int(input("Enter a left margin:\t"))          #get left margin from user
   marg_right = int(input("Enter a right margin:\t"))        #get right margin from user
   chars_per_line = maxChars(marg_left, marg_right)          #max characters allowed per line
   
-  
+
   dataFile = open("DAT1.TXT", 'r')                          #opens file for READING only
   tmpStr = dataFile.read()                                  #reads entire file into a single string
   wordArray = tmpStr.split(' ')                             #creates array from string, separated by ' '
@@ -68,12 +72,12 @@ def main():
     chars_in_word = 0                                       #stores characters in each word
     for char in word:
       chars_in_word += 1
-    if (charTotal + chars_in_word + 1 <= chars_per_line):   #if the current word's characters don't exceed the max characters allowed, print word in that line
+    if (charTotal + chars_in_word + 1 <= chars_per_line):   #if the current word's characters (plus a space) don't exceed the max characters allowed, print word w/ a space in that line
       charTotal += chars_in_word + 1
       remainingSpace_1 = chars_per_line - charTotal
       outputFile.write(word + ' ')
       use1 = True
-    else:                                                   #if the current word's characters do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
+    else:                                                   #if the current word's characters (plus a space) do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
       remainingSpace_2 = chars_per_line - charTotal
       charTotal = chars_in_word + 1
       for i in range(remainingSpace_2):
@@ -94,8 +98,8 @@ def main():
   outputFile.close()
     
   printToUser()
-
-
+####################################################################################################
+####################################################################################################
 
 if __name__ == "__main__":
   main()
