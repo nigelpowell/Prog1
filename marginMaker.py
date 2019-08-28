@@ -8,9 +8,9 @@ Assumptions
   * English alphabet is the only alphabet used
   
 Requirements
-  * Get margins from user
+  * Get margins from user (2 positive integers)
   * Only one font currently works (12 pt)
-  * Read text from "DAT1.TXT"
+  * Read text from "DAT1.TXT" (a single-line text file --> **(can be fixed to work differently in a future patch)**)             
   * Format text in accordance to user-set margins, spacing, etc.
   * Display edited text
   * Create a new textfile with the edited text ("DAT1_output.TXT")
@@ -26,19 +26,19 @@ Algorithm
       the next line and reset the count
   6. Repeat this process (4-5) until all the words in "DAT1.TXT" are read
   7. Close the outputted file ("DAT1_output.TXT"), read all the lines from
-     it, and display it to the user
+     the file, and display it to the user in the Terminal
 '''
 ####################################################################################################
 ####################################################################################################
-def maxChars(m_left, m_right):          #calculates the maximum number of characters allowed per line
+def maxChars(m_left, m_right):          #this function calculates the maximum number of characters allowed per line
   numChars = 80 - (m_left + m_right)
   return numChars
 ####################################################################################################
-def printToUser():                      #reads from output file and prints it to the user
-  for i in range(1,81):
+def printToUser():                      #this function reads from output file and prints it to the user
+  for i in range(1,81):                                     #prints '|' 80 times (to keep track of the proper page width)
     print('|', end='')
   print()
-  displayToUser = open("DAT1_output.TXT", 'r')
+  displayToUser = open("DAT1_output.TXT", 'r')              #opens "DAT1_output.TXT" for READING, displaying line by line
   for line in displayToUser:
     print(line)
   displayToUser.close()
@@ -67,32 +67,32 @@ def main():
   charTotal = 0                                             #keeps track of the number of characters currently in the line
   outputFile.write(leftSpace)                               #writes left margin
   
-  use1 = True                                               #keep track of how many spaces to output at the end of file
   for word in wordArray:                                    #loops through every word in the array
     chars_in_word = 0                                       #stores characters in each word
     for char in word:
       chars_in_word += 1
-    if (charTotal + chars_in_word + 1 <= chars_per_line):   #if the current word's characters (plus a space) don't exceed the max characters allowed, print word w/ a space in that line
-      charTotal += chars_in_word + 1
-      remainingSpace_1 = chars_per_line - charTotal
-      outputFile.write(word + ' ')
-      use1 = True
-    else:                                                   #if the current word's characters (plus a space) do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
-      remainingSpace_2 = chars_per_line - charTotal
+    if (charTotal + chars_in_word <= chars_per_line):       #if the current word's characters don't exceed the max characters allowed, print word in that line
+      charTotal += chars_in_word
+      remainingSpace = chars_per_line - charTotal
+      outputFile.write(word)
+      if (remainingSpace > 0):                              #checks if there is space left in the line to add a space (' ') character. If True, a space is written
+        outputFile.write(' ')
+        remainingSpace -= 1
+        charTotal += 1
+    else:                                                   #if the current word's characters do exceed the max characters allowed, fill the rest of the line w/ space && margins, then write word on the next line
+      remainingSpace = chars_per_line - charTotal
       charTotal = chars_in_word + 1
-      for i in range(remainingSpace_2):
+      for i in range(remainingSpace):
         outputFile.write(' ')
       outputFile.write(rightSpace + '\n' + leftSpace + word + ' ')
-      use1 = False
+    
   
-  if (use1 == True):
-    remainingSpace_1 = chars_per_line - charTotal
-    for i in range(remainingSpace_1):                         #after the last word in last line, fill the line with spaces && write right margins
-      outputFile.write(' ')
-  elif (use1 == False):
-    remainingSpace_2 = chars_per_line - charTotal
-    for i in range(remainingSpace_2):                         #after the last word in last line, fill the line with spaces && write right margins
-      outputFile.write(' ')
+  
+  
+  remainingSpace = chars_per_line - charTotal
+  for i in range(remainingSpace):                         #after the last word in last line, fill the line with spaces && write right margins
+    outputFile.write(' ')
+
 
   outputFile.write(rightSpace)
   outputFile.close()
