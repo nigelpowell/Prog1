@@ -1,6 +1,7 @@
-*****Hello everyone!  My name is Earl Tankard, Jr. and I am a Junior       *****
-*****Computer Science Major from Marlboro, NJ.  I attend the illustrious   *****
-*****Howard University, and am a member of the Inaugural Cohort of Bison   *****
-*****STEM Scholars.  I am also the Chief Recording Officer (CRO) in        *****
-*****T.R.U.S.T: a Society For Men.  Nice to meet you all!  I am looking    *****
-*****forward to whatever the rest of this semester has in store!           *****
+**********Hello everyone!  My name is Earl Tankard, Jr. and I am a    **********
+**********Junior Computer Science Major from Marlboro, NJ.  I attend  **********
+**********the illustrious Howard University, and am a member of the   **********
+**********Inaugural Cohort of Bison STEM Scholars.  I am also the     **********
+**********Chief Recording Officer (CRO) in T.R.U.S.T: a Society For   **********
+**********Men.  Nice to meet you all!  I am looking forward to        **********
+**********whatever the rest of this semester has in store!            **********
