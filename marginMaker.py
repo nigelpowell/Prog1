@@ -1,7 +1,12 @@
 '''
+marginMaker.py
+created by: 
+  Earl Tankard, Jr.
+  Computer Science Major at Howard University
+
 Assumptions
   * "DAT1.TXT" is properly formatted (grammatically)
-  * "DAT1.TXT" words are all separated by spaces (' ')
+  * "DAT1.TXT" words are all separated by spaces (' ') && are on a single line           -------> **can be fixed to work differently in a future patch**
   * The user types in the two positive integers, representing the left and right margins
   * The margins entered by the user represent the number of characters that will be used
   * Line is max of 80 chars total
@@ -10,10 +15,10 @@ Assumptions
 Requirements
   * Get margins from user (2 positive integers)
   * Only one font currently works (12 pt)
-  * Read text from "DAT1.TXT" (a single-line text file --> **(can be fixed to work differently in a future patch)**)             
-  * Format text in accordance to user-set margins, spacing, etc.
-  * Display edited text
-  * Create a new textfile with the edited text ("DAT1_output.TXT")
+  * Program will read text from "DAT1.TXT" (a single-line text file)                     -------> **can be fixed to work differently in a future patch**
+  * Program will format text in accordance to user-set margins, spacing, etc.
+  * Program will display edited text
+  * Program will create a new textfile with the edited text ("DAT1_output.TXT")
   
 Algorithm
   1. Prompt user to enter margins (left and right)
@@ -68,7 +73,7 @@ def main():
   outputFile.write(leftSpace)                               #writes left margin
   
   for word in wordArray:                                    #loops through every word in the array
-    chars_in_word = 0                                       #stores characters in each word
+    chars_in_word = 0                                       #stores number of characters in each word
     for char in word:
       chars_in_word += 1
     if (charTotal + chars_in_word <= chars_per_line):       #if the current word's characters don't exceed the max characters allowed, print word in that line
