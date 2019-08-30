@@ -29,8 +29,8 @@ Algorithm
   5. If the word's characters do not cause the line to exceed the max number
       of characters, add that word to the line. Otherwise, add that word to
       the next line and reset the count
-  6. Repeat this process (4-5) until all the words in "DAT1.TXT" are read
-  7. Close the outputted file ("DAT1_output.TXT"), read all the lines from
+  6. Repeat this process (4-5) until all the "words" in the array are read
+  7. Close the outputted file ("DAT1_output.TXT"), reopen it, read all the lines from
      the file, and display it to the user in the Terminal
 '''
 ####################################################################################################
